@@ -46,12 +46,10 @@ DROP TABLE IF EXISTS `mark`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mark` (
-  `studentId` int NOT NULL DEFAULT '0',
-  `subjectId` int NOT NULL DEFAULT '0',
-  `score` float NOT NULL,
-  `student_id` int NOT NULL DEFAULT '0',
-  `subject_id` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`studentId`,`subjectId`)
+  `markId` int NOT NULL,
+  `registerId` int DEFAULT NULL,
+  `score` float DEFAULT NULL,
+  PRIMARY KEY (`markId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,8 +59,57 @@ CREATE TABLE `mark` (
 
 LOCK TABLES `mark` WRITE;
 /*!40000 ALTER TABLE `mark` DISABLE KEYS */;
-INSERT INTO `mark` VALUES (1,1,6.7,0,0),(1,2,8.8,0,0),(2,1,9,0,0),(2,3,7,0,0),(3,3,9,0,0),(4,1,2,0,0),(4,3,3,0,0);
+INSERT INTO `mark` VALUES (0,4,1),(1,1,6.7),(2,3,4),(3,3,9),(4,2,1),(5,5,9),(6,6,2),(7,7,3);
 /*!40000 ALTER TABLE `mark` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `register`
+--
+
+DROP TABLE IF EXISTS `register`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `register` (
+  `registerId` int NOT NULL AUTO_INCREMENT,
+  `studentId` int NOT NULL,
+  `subjectId` int NOT NULL,
+  PRIMARY KEY (`registerId`),
+  UNIQUE KEY `unique_pair` (`studentId`,`subjectId`),
+  UNIQUE KEY `UK7is4wqpl3tkjvyaccp1bhen7v` (`studentId`,`subjectId`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `register`
+--
+
+LOCK TABLES `register` WRITE;
+/*!40000 ALTER TABLE `register` DISABLE KEYS */;
+INSERT INTO `register` VALUES (1,1,1),(2,1,2),(3,2,1),(4,2,3),(11,3,2),(5,3,3),(6,4,1),(10,4,2),(7,4,3);
+/*!40000 ALTER TABLE `register` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `register_SEQ`
+--
+
+DROP TABLE IF EXISTS `register_SEQ`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `register_SEQ` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `register_SEQ`
+--
+
+LOCK TABLES `register_SEQ` WRITE;
+/*!40000 ALTER TABLE `register_SEQ` DISABLE KEYS */;
+INSERT INTO `register_SEQ` VALUES (1);
+/*!40000 ALTER TABLE `register_SEQ` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -98,6 +145,28 @@ INSERT INTO `student` VALUES (1,'jack','Nam','CT5A','2020-2025','2002-02-02',0,N
 UNLOCK TABLES;
 
 --
+-- Table structure for table `student_SEQ`
+--
+
+DROP TABLE IF EXISTS `student_SEQ`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `student_SEQ` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_SEQ`
+--
+
+LOCK TABLES `student_SEQ` WRITE;
+/*!40000 ALTER TABLE `student_SEQ` DISABLE KEYS */;
+INSERT INTO `student_SEQ` VALUES (1);
+/*!40000 ALTER TABLE `student_SEQ` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `subject`
 --
 
@@ -122,6 +191,28 @@ LOCK TABLES `subject` WRITE;
 INSERT INTO `subject` VALUES (1,'CSDL & GT',0,NULL),(2,'Triết học',0,NULL),(3,'Lập trình web',0,NULL);
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `subject_SEQ`
+--
+
+DROP TABLE IF EXISTS `subject_SEQ`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `subject_SEQ` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subject_SEQ`
+--
+
+LOCK TABLES `subject_SEQ` WRITE;
+/*!40000 ALTER TABLE `subject_SEQ` DISABLE KEYS */;
+INSERT INTO `subject_SEQ` VALUES (1);
+/*!40000 ALTER TABLE `subject_SEQ` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -132,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18 15:25:56
+-- Dump completed on 2025-03-24  9:59:16

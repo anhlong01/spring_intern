@@ -4,21 +4,18 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="mark")
+@Table(name = "register", uniqueConstraints = @UniqueConstraint(columnNames = {"studentId", "subjectId"}))
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Mark {
+public class Register {
     @Id
-    @Column(name="markId")
-    int markId;
     @Column(name = "registerId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int registerId;
-    float score;
+    int studentId;
+    int subjectId;
 }
-
-

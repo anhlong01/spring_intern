@@ -6,7 +6,6 @@ import com.example.sv.entity.Student;
 import com.example.sv.entity.Subject;
 import com.example.sv.exception.AppException;
 import com.example.sv.exception.ErrorCode;
-import com.example.sv.key.CompositeKey;
 import com.example.sv.repository.MarkRepository;
 import com.example.sv.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("student")
 public class StudentController {
@@ -44,13 +44,19 @@ public class StudentController {
     @GetMapping("/subject/{id}")
     ApiResponse<List<String>> getSubjectById(@PathVariable int id){
         List<String> list = studentService.getSubjectById(id);
-        if(list.size()==0)
-            throw new AppException(ErrorCode.SUBJECT_NOT_FOUND);
+
         ApiResponse<List<String>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(list);
         return apiResponse;
     }
 
+    @GetMapping("/subject/all")
+    ApiResponse<List<Subject>> findAllSubject(){
+        List<Subject> list = studentService.findAllSubject();
+        ApiResponse<List<Subject>> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(list);
+        return apiResponse;
+    }
     @GetMapping("/mark/{id}")
     ApiResponse<HashMap<String, Float>> getMarkById(@PathVariable int id){
         HashMap<String, Float> map = studentService.getMarkById(id);
@@ -61,13 +67,8 @@ public class StudentController {
 
     @PostMapping("/mark/insert")
     ApiResponse<Mark> insertMark(@RequestParam int studentId, @RequestParam int subjectId, @RequestParam float mark){
-        boolean exist = markRepository.existsByCompositeKey(studentId, subjectId);
-        if(exist)
-            throw new AppException(ErrorCode.RECORD_EXIST);
-        Mark newMark = new Mark(studentId, subjectId, mark);
-        markRepository.save(newMark);
         ApiResponse<Mark> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(newMark);
+        apiResponse.setResult(studentService.insertMark(studentId, subjectId, mark));
         return apiResponse;
     }
 

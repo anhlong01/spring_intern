@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatusCode;
 public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error", HttpStatus.INTERNAL_SERVER_ERROR),
     STUDENT_NOT_FOUND(404, "Student with this ID not found", HttpStatus.NOT_FOUND),
-    SUBJECT_NOT_FOUND(404, "Not found any subject of the student with this id", HttpStatus.NOT_FOUND),
+    SUBJECT_NOT_FOUND(404, "Sinh viên không đăng ký môn nào", HttpStatus.NOT_FOUND),
+    NOT_REGISTERED(404, "Sinh viên không đăng ký môn này, ko thể nhập điểm", HttpStatus.NOT_FOUND),
     RECORD_EXIST(1001, "The record with this key already exists", HttpStatus.BAD_REQUEST),
     ;
 
